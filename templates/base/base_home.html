@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kid Info {% block title %}{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<header>
+        <!-- Header Start -->
+       <div class="header-area header-transparrent ">
+            <div class="main-header header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2 col-md-2">
+                            <div class="logo">
+                                <a href="" style="color: black">Tu bedzie logo</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10">
+                            <!-- Main-menu -->
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li class="active"><a href="index.html"> Home</a></li>
+                                        <li><a href="#">Pages</a>
+                                            <ul class="submenu">
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="single-blog.html">Blog Details</a></li>
+                                                <li><a href="elements.html">Element</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact.html">Login/Register</a></li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+        <!-- Header End -->
+    </header>
+{% block content %}
+
+{% endblock %}
+<script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+</body>
+</html>
