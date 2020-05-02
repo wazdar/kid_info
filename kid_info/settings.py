@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'kid_auth',
     'main',
 ]
 
@@ -121,3 +122,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 LOGIN_URL = '/login'
 
+AUTH_USER_MODEL = 'kid_auth.User'
