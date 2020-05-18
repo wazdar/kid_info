@@ -1,0 +1,25 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}- Dzieci{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row">
+        <pre>
+                      {% for child in childrens %}
+
+                          {{ child }}
+                          {{ child.presence_today }}
+                      {% endfor %}
+        </pre>
+
+        </div>
+    </main>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

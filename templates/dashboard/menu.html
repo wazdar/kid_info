@@ -1,0 +1,27 @@
+<aside class="app-sidebar">
+    <ul class="app-menu">
+        {% if request.user.user_type == 1 %}
+            <a href="{% url 'dashboard-kids' %}">
+                <li class="app-menu__item"><i class="fa fa-child mr-2"></i>Moje Dziecko</li>
+            </a>
+        {% else %}
+            <a href="{% url 'dashboard-home' %}">
+                <li class="app-menu__item"><i class="fa fa-home mr-2"></i>Home</li>
+            </a>
+            <a href="{% url 'dashboard-kids' %}">
+                <li class="app-menu__item"><i class="fa fa-child mr-2"></i>Dzieci</li>
+            </a>
+            <a href="{% url 'kids-presence' %}">
+                <li class="app-menu__item"><i class="fa fa-calendar mr-2"></i>Lista obecności</li>
+            </a>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-utensils mr-2"></i>Posiłki</li>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-cubes mr-2"></i>Plan zajęć</li>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-cash-register mr-2"></i>Rozliczenia</li>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-star mr-2"></i>Aktualności</li>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-calendar-alt mr-2"></i>Wydarzenia</li>
+            <li class="app-menu__item"><a href=""></a><i class="fa fa-comments mr-2"></i>Wiadomości do rodziców</li>
+        {% endif %}
+
+
+    </ul>
+</aside>

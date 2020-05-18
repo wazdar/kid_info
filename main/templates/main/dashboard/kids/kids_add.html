@@ -1,0 +1,23 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% block title %}- Dzieci{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row">
+            {{ msg }}
+            <pre>
+                            dzieciok dodej
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button>Dodej</button>
+            </form>
+
+            </pre>
+
+        </div>
+    </main>
+
+
+{% endblock %}

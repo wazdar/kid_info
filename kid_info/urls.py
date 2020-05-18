@@ -8,5 +8,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomePageView.as_view(), name='home-page'),
     path('2', views.HomePageView2.as_view(), name='home-page'),
-    path('account/', include(auth_urls))
+    path('account/', include(auth_urls)),
+
+    path('dashboard/', views.DashboardHomeView.as_view(), name='dashboard-home'),
+    path('dashboard/kids/', views.DashboardKidsView.as_view(), name='dashboard-kids'),
+    path('dashboard/kids/add', views.KidsAddView.as_view(), name='kids-add'),
+    path('dashboard/kids/presence', views.KidsPresencesView.as_view(), name='kids-presence'),
+
 ]

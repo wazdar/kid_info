@@ -1,0 +1,48 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}- Home{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row">
+            <div class="col-3">
+                <div class="profile-card">
+                    <div class="profile-card__img" style="margin-left: auto">
+                        <img src="{% static 'dashboard/img/building.jpg' %}"
+                             alt="profile card">
+                    </div>
+
+                    <div class="profile-card__cnt">
+                        <div class="profile-card__name"></div>
+                    </div>
+                    <hr>
+                    <span class="profile-card__cnt-title">{{ institution.name }}</span>
+                    <div class="children-status justify-content-center">
+                        <p>Ilość dzieci</p>
+                        <div class="vertical-line"></div>
+                        <p>{{ institution.children_set.all.count }}</p>
+                    </div>
+                    <div class="children-status justify-content-center">
+                        <p>Obecnych</p>
+                        <div class="vertical-line"></div>
+                        <p class="text-success">{{ institution.children_set.all.count }}</p>
+
+                    </div>
+                    <div class="children-status justify-content-center">
+                        <p>Nieobecnych</p>
+                        <div class="vertical-line"></div>
+                        <p class="text-danger">{{ institution.children_set.all.count }}</p>
+                    </div>
+
+                    <div class="children-status justify-content-center">
+                        <p>Nieokreśonych</p>
+                        <div class="vertical-line"></div>
+                        <p class="text-secondary">{{ institution.children_set.all.count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}

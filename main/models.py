@@ -1,10 +1,11 @@
+import datetime
 from django.db import models
+from django.contrib.postgres.fields import DateTimeRangeField
+
 
 
 class Institution(models.Model):
     name = models.CharField(max_length=256)
-    street = models.CharField(max_length=256)
-    town = models.CharField(max_length=64)
     owner = models.ForeignKey('kid_auth.User', on_delete=models.CASCADE)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
 
@@ -23,14 +24,26 @@ class Children(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
 
-    mother = models.ForeignKey('kid_auth.User', related_name='mother', on_delete=models.CASCADE)
-    father = models.ForeignKey('kid_auth.User', related_name='father', on_delete=models.CASCADE)
+    mother_inv = models.OneToOneField('kid_auth.ParentInvitation', related_name='mother_inv', null=True,
+                                      on_delete=models.SET_NULL)
+    father_inv = models.OneToOneField('kid_auth.ParentInvitation', related_name='father_inv', null=True,
+                                      on_delete=models.SET_NULL)
+
+    mother = models.OneToOneField('kid_auth.User', related_name='mother', on_delete=models.CASCADE, null=True)
+    father = models.OneToOneField('kid_auth.User', related_name='father', on_delete=models.CASCADE, null=True)
 
     groups = models.ForeignKey(ChildrenGroup, on_delete=models.SET_NULL, null=True)
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
-    presence = models.ManyToManyField('Presences')
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
+    def presence_today(self):
+        presence = self.presences_set.filter(date__contains=datetime.date.today()).first()
+        return presence.is_present if presence else None
 
 
 class Presences(models.Model):
-    date = models.DateTimeField()
-    presence = models.BooleanField
+    children = models.ForeignKey(Children, on_delete=models.CASCADE)
+    date = DateTimeRangeField(default=None)
+    is_present = models.NullBooleanField()

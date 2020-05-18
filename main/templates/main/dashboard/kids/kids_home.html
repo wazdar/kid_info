@@ -1,0 +1,153 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}- Dzieci{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row">
+            {% for children in childrens %}
+                <div class="col-3">
+                    <div class="profile-card">
+                        <div class="profile-card__img">
+                            <img src="{% static 'dashboard/img/boy.jpg' %}"
+                                 alt="profile card">
+                        </div>
+                        <div class="profile-card__cnt">
+                            <div class="profile-card__name">
+                                {{ children.first_name }} {{ children.last_name }}
+                                <span class="present present-yes">Obecny</span>
+                            </div>
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th>Mama</th>
+                                    <td>
+                                        {% if children.mother %}{{ children.mother }}{% else %}
+                                            <div class="btn-group float-right">
+                                                <button type="button"
+                                                        class="btn btn-sm btn-success mr-1"
+                                                        data-toggle="dropdown"
+                                                        id="inv_mother_{{ children.id }}"
+                                                >
+                                                    <i class="fa fa-envelope"></i> Zaproś
+                                                </button>
+                                                {% if children.mother_inv %}
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-warning float-right ml-1"
+                                                            data-id="{{ children.mother_inv.id }}"
+                                                            data-toggle="cancle_inv"
+                                                    >
+                                                        <i class="fa fa-trash"></i> Anuluj
+                                                    </button>
+                                                {% endif %}
+                                                <div class="dropdown-menu"
+                                                     aria-labelledby="inv_mother_{{ children.id }}"
+                                                     style="padding: 15px 15px 0; width: 300px">
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" id="id"
+                                                               value="{{ children.id }}">
+                                                        <input type="hidden" name="parent_type" value="0">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control"
+                                                                   name="email"
+                                                                   id="email_mother_{{ children.id }}"
+                                                                   placeholder="E-mail"
+                                                                   aria-describedby="button-addon2"
+                                                            >
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                        type="submit"
+                                                                        data-toggle="inv_parent"
+                                                                        data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order"
+                                                                >
+                                                                    <i class="fa fa-envelope"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Tata</th>
+                                    <td>
+                                        {% if children.father %}{{ children.father }}{% else %}
+                                            <div class="btn-group float-right">
+                                                <button type="button"
+                                                        class="btn btn-sm btn-success mr-1"
+                                                        data-toggle="dropdown"
+                                                        id="inv_father_{{ children.id }}"
+                                                >
+                                                    <i class="fa fa-envelope"></i> Zaproś
+                                                </button>
+                                                {% if children.father_inv %}
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-warning float-right ml-1"
+                                                            data-id="{{ children.father_inv.id }}"
+                                                            data-toggle="cancle_inv"
+                                                    >
+                                                        <i class="fa fa-trash"></i> Anuluj
+                                                    </button>
+                                                {% endif %}
+                                                <div class="dropdown-menu"
+                                                     aria-labelledby="inv_father_{{ children.id }}"
+                                                     style="padding: 15px 15px 0; width: 300px">
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" id="id"
+                                                               value="{{ children.id }}">
+                                                        <input type="hidden" name="parent_type" value="1">
+                                                        <div class="input-group mb-3">
+
+                                                            <input type="text" class="form-control"
+                                                                   name="email"
+                                                                   id="email_father_{{ children.id }}"
+                                                                   placeholder="E-mail"
+                                                                   aria-describedby="button-addon2"
+
+                                                            >
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary"
+                                                                        type="submit"
+                                                                        data-toggle="inv_parent"
+                                                                        data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Order"
+                                                                >
+                                                                    <i class="fa fa-envelope"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Dieta</th>
+                                    <td>idk</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <a href="{% url 'kids-add' %}">
+                <button class="btn btn-primary">Dodaj</button>
+            </a>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

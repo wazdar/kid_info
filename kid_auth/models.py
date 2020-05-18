@@ -61,3 +61,11 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
+
+
+class ParentInvitation(models.Model):
+    hash = models.CharField(max_length=128)
+    date = models.DateTimeField(auto_now=True)
+    email = models.EmailField()
+    was_opened = models.BooleanField(default=False)
+
