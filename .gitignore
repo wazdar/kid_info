@@ -3,4 +3,4 @@ venv/
 ./__pycache__/
 *.pyc
 */migrations/*
-*/node_modules/*
+/static/node_modules/*
