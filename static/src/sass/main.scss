@@ -9,6 +9,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
+
 //App Layout
 
 @import "app/components/app";
@@ -19,3 +20,8 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 @import "app/components/_widgets.scss";
 @import "app/components/_children.scss";
+
+//Full Calendar
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";

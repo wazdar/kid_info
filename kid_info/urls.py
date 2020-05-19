@@ -14,5 +14,6 @@ urlpatterns = [
     path('dashboard/kids/', views.DashboardKidsView.as_view(), name='dashboard-kids'),
     path('dashboard/kids/add', views.KidsAddView.as_view(), name='kids-add'),
     path('dashboard/kids/presence', views.KidsPresencesView.as_view(), name='kids-presence'),
+    path('dashboard/kids/presence/set', views.KidsPresencesSetView.as_view(), name='kids-presence-set'),
 
 ]
