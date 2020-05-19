@@ -1,7 +1,5 @@
 import datetime
 from django.db import models
-from django.contrib.postgres.fields import DateTimeRangeField
-
 
 
 class Institution(models.Model):
@@ -45,5 +43,6 @@ class Children(models.Model):
 
 class Presences(models.Model):
     children = models.ForeignKey(Children, on_delete=models.CASCADE)
-    date = DateTimeRangeField(default=None)
+    date_start = models.DateField()
+    date_end = models.DateField(default=None, null=True)
     is_present = models.NullBooleanField()

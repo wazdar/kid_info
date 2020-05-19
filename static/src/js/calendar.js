@@ -2,37 +2,65 @@ import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interaction from '@fullcalendar/interaction';
 import timegrid from '@fullcalendar/timegrid';
+import {get_presence, getCookie, modal_spiner, send_presence} from './ultis';
 
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('parent-calendar');
 
-    function addModal() {
-        var modal = `
-    <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog modal-dialog-centered">        
-          <div class="modal-content">
-            <div class="btn-group" role="group">
-                 <button id="btn_yes" class="btn btn-success">Obecny</button>         
-                 <button class="btn btn-danger">Nieobecny</button>         
-            </div>
-          </div>
-       </div>
-  </div>`;
+    function send_presence(children_id, presence, date_start, date_end = null) {
+    $.ajax({
+        type: 'post',
+        url: '/dashboard/kids/presence/set',
+        data: {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            id: children_id,
+            presence: presence,
+            date_start: date_start,
+            date_end: date_end,
+        },
+        beforeSend: function () {
+            $('#myModal').html(modal_spiner())
+        },
+        success: function (response) {
+            $('#myModal').modal('hide');
+            $('#myModal').detach();
+            calendar.refetchEvents();
+        },
 
+        error: function (data) {
+
+        }
+    });
+}
+
+
+    function showModal(date1, date2 = null) {
+
+        var modal = `
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered">        
+              <div class="modal-content">
+                <div class="btn-group" role="group">
+                     <button id="btn_yes" class="btn btn-success">Obecny</button>         
+                     <button id="btn_no" class="btn btn-danger" onclick="">Nieobecny</button>         
+                </div>
+              </div>
+           </div>
+      </div>`;
 
         $("body").append(modal);
         $('#myModal').modal('show')
 
+        $('#btn_yes').click(function () {
+            send_presence(CHILDREN_ID, true, date1, date2);
+
+        });
+        $('#btn_no').click(function () {
+            send_presence(CHILDREN_ID, false, date1, date2)
+        });
     }
 
-
-    function send_presence(children_id, presence, date_start, date_end = null,) {
-        console.log(children_id, presence, date_start, date_end)
-
-    }
-
-    var present = null;
     var calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin, timegrid, interaction],
         locales: 'pl',
@@ -43,36 +71,31 @@ document.addEventListener('DOMContentLoaded', function () {
             right: ''
         },
         dateClick: function (info) {
-            addModal()
-            $('#btn_yes').click(function () {
-                $('#myModal').modal('hide').remove()
-                present = true
-
-            })
-            send_presence(CHILDREN_ID, present, info.dateStr)
-
+            showModal(info.dateStr);
         },
         select: function (info) {
 
             if (info.end.getDate() !== info.start.getDate() + 1) {
-                alert('selected :) ');
+                showModal(info.startStr, info.endStr);
             }
         },
-        events: [
+        eventSources: [
             {
-                start: '2020-05-03',
-                end: '2020-05-05',
-                rendering: 'background',
-                color: '#1a8bff'
-            },
-            {
-                start: '2020-05-06',
-                end: '2020-05-08',
-                rendering: 'background',
-                color: '#ff6161'
+                url: '/dashboard/kids/presence/get',
+                method: 'POST',
+                extraParams: {
+                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                    id: CHILDREN_ID,
+                },
+                failure: function () {
+                    alert('Bład pobierania danych');
+                },
             }
         ]
     });
 
-    calendar.render();
+
+calendar.render()
+
+
 });

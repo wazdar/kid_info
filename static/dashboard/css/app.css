@@ -13339,7 +13339,7 @@ readers do not read off random characters that represent icons */
   background-color: #764dff;
   border-radius: 5px;
   box-shadow: 4px 8px 4px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease, width 0.3s ease; }
+  transition: left 0.3s ease, width 0.3s ease; }
   @media (max-width: 767px) {
     .app-sidebar {
       left: -230px; } }

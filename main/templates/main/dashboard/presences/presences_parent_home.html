@@ -7,6 +7,9 @@
         <div class="row">
 
             {{ children.presence_today }}
+            {% for a in children.presences_set.all%}
+                {{ a.date.lower.date }}{{ a.date.upper.date }}
+            {% endfor %}
         </div>
         <div class="row">
             <h5>{{ children }}</h5>
