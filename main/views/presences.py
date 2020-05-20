@@ -34,11 +34,10 @@ class KidsPresencesSetView(LoginRequiredMixin, View):
         date_end = datetime.datetime.strptime(request.POST.get('date_end'), '%Y-%m-%d') if request.POST.get(
             'date_end') else date_start + datetime.timedelta(days=1)
 
-        if not request.POST.get('date_end'):
-            print(child.presences_set.filter(date_start__lte=date_start.date(), date_start__gte=date_start.date()))
-        else:
-            print(child.presences_set.filter(date_start__gte=date_start, date_end__lte=date_end.date()))
-        # https: // stackoverflow.com / questions / 32248375 / select - the - highest - difference - value - between - two - columns
+        for a in Presences.objects.raw('SELECT * FROM main_presences WHERE %s BETWEEN date_start AND date_end OR %s = date_start OR %s = date_end', [date_start.date(), date_start.date(), date_start.date()]):
+            print(a)
+
+        # https://stackoverflow.com/questions/32248375/select-the-highest-difference-value-between-two-columns
         #Presences.objects.create(children=child, date_start=date_start, date_end=date_end, is_present=presence)
 
         return JsonResponse({
