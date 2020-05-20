@@ -32,12 +32,14 @@ class KidsPresencesSetView(LoginRequiredMixin, View):
         presence = request.POST.get('presence') in ['true']
         date_start = datetime.datetime.strptime(request.POST.get('date_start'), '%Y-%m-%d')
         date_end = datetime.datetime.strptime(request.POST.get('date_end'), '%Y-%m-%d') if request.POST.get(
-            'date_end') else None
-        first_date = datetime.date(2005, 1, 1)
-        last_date = datetime.date(2005, 3, 31)
-        print(child.presences_set.filter(date__startswith__gte=date_start.date(), date__endswith__lte=date_start.date()))
+            'date_end') else date_start + datetime.timedelta(days=1)
 
-        # Presences.objects.create(children=child, date=(date_start, date_end), is_present=presence)
+        if not request.POST.get('date_end'):
+            print(child.presences_set.filter(date_start__lte=date_start.date(), date_start__gte=date_start.date()))
+        else:
+            print(child.presences_set.filter(date_start__gte=date_start, date_end__lte=date_end.date()))
+        # https: // stackoverflow.com / questions / 32248375 / select - the - highest - difference - value - between - two - columns
+        #Presences.objects.create(children=child, date_start=date_start, date_end=date_end, is_present=presence)
 
         return JsonResponse({
             'status': 'ok'
@@ -50,8 +52,8 @@ class KidsPresencesGetView(LoginRequiredMixin, View):
         presences = []
         for presence in child.presences_set.all():
             presences.append({
-                'start': presence.date.lower.date(),
-                'end': presence.date.upper.date() if presence.date.upper else None,
+                'start': presence.date_start,
+                'end': presence.date_end if presence.date_end else None,
                 'rendering': 'background',
                 'allDay': 'true',
                 'color': '#21ff37' if presence.is_present else '#ff6161'

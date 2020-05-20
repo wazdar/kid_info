@@ -37,7 +37,7 @@ class Children(models.Model):
         return self.first_name + ' ' + self.last_name
 
     def presence_today(self):
-        presence = self.presences_set.filter(date__contains=datetime.date.today()).first()
+        presence = self.presences_set.filter(date_start__contains=datetime.date.today()).first()
         return presence.is_present if presence else None
 
 
