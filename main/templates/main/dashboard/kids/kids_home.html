@@ -5,6 +5,15 @@
 {% block content %}
     <main class="app-content">
         <div class="row">
+            {% if request.user.user_type != 1 %}
+                <div class="row mt-2 ml-2">
+                    <a href="{% url 'kids-add' %}">
+                        <button class="btn btn-primary">Dodaj</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
             {% for children in childrens %}
                 <div class="col-3">
                     <div class="profile-card">
@@ -15,7 +24,11 @@
                         <div class="profile-card__cnt">
                             <div class="profile-card__name">
                                 {{ children.first_name }} {{ children.last_name }}
-                                <span class="present present-yes">Obecny</span>
+                                {% if children.presence_today %}
+                                    <span class="present present-yes">Obecny</span>
+                                {% elif children.presence_today != None %}
+                                    <span class="present present-no">Nieobecny</span>
+                                {% endif %}
                             </div>
                             <table class="table table-bordered">
                                 <tbody>
@@ -138,11 +151,6 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
-        <div class="row">
-            <a href="{% url 'kids-add' %}">
-                <button class="btn btn-primary">Dodaj</button>
-            </a>
         </div>
     </main>
 

@@ -2,7 +2,7 @@ import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interaction from '@fullcalendar/interaction';
 import timegrid from '@fullcalendar/timegrid';
-import {get_presence, getCookie, modal_spiner, send_presence} from './ultis';
+import {get_presence, getCookie, modal_spiner} from './ultis';
 
 
 document.addEventListener('DOMContentLoaded', function () {

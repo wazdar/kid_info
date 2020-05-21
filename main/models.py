@@ -37,12 +37,11 @@ class Children(models.Model):
         return self.first_name + ' ' + self.last_name
 
     def presence_today(self):
-        presence = self.presences_set.filter(date_start__contains=datetime.date.today()).first()
+        presence = self.presences_set.filter(date=datetime.date.today()).first()
         return presence.is_present if presence else None
 
 
 class Presences(models.Model):
     children = models.ForeignKey(Children, on_delete=models.CASCADE)
-    date_start = models.DateField()
-    date_end = models.DateField(default=None, null=True)
+    date = models.DateField()
     is_present = models.NullBooleanField()
