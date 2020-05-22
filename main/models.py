@@ -66,3 +66,10 @@ class Presences(models.Model):
     children = models.ForeignKey(Children, on_delete=models.CASCADE)
     date = models.DateField()
     is_present = models.NullBooleanField()
+
+
+class Message(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    children = models.OneToOneField(Children, on_delete=models.CASCADE)
+    sender = models.OneToOneField('kid_auth.User', on_delete=models.CASCADE)
+    text = models.TextField()
