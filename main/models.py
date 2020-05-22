@@ -7,6 +7,17 @@ class Institution(models.Model):
     owner = models.ForeignKey('kid_auth.User', on_delete=models.CASCADE)
     address = models.ForeignKey('Address', on_delete=models.CASCADE)
 
+    def child_in_institution_today(self, date=datetime.datetime.today()):
+        in_inst = 0
+        out_inst = 0
+        none_inst = 0
+        for child in self.children_set.all():
+            in_inst += 1 if child.presence_on_day(date) else 0
+            out_inst += 1 if not child.presence_on_day(date) else 0
+            none_inst += 1 if child.presence_on_day(date) is None else 0
+
+        return {'in_inst': in_inst, 'out_inst': out_inst, 'none_inst': none_inst}
+
 
 class ChildrenGroup(models.Model):
     name = models.CharField(max_length=256)
@@ -19,6 +30,9 @@ class Address(models.Model):
 
 
 class Children(models.Model):
+    class Meta:
+        ordering = ['last_name']
+
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
 
@@ -39,6 +53,13 @@ class Children(models.Model):
     def presence_today(self):
         presence = self.presences_set.filter(date=datetime.date.today()).first()
         return presence.is_present if presence else None
+
+    def presence_on_day(self, date=datetime.datetime.today()):
+        presence = self.presences_set.filter(date=date)
+        return presence.first().is_present if presence else None
+
+    def is_girl(self):
+        return self.first_name[-1] == 'a'
 
 
 class Presences(models.Model):

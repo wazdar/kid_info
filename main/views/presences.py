@@ -14,8 +14,14 @@ class KidsPresencesView(LoginRequiredMixin, View):
 
     def get(self, request):
         if request.user.user_type != 1:
-            childrens = Children.objects.filter(institution=request.user.institution_set.all()[0])
-            return render(request, 'main/dashboard/presences/presences_home.html', {
+            if request.GET.get('child'):
+                childrens = get_object_or_404(Children, pk=request.GET.get('child'))
+                return render(request, 'main/dashboard/presences/presences_parent_home.html', {
+                    'children': childrens,
+                })
+            else:
+                childrens = Children.objects.filter(institution=request.user.institution_set.all()[0])
+                return render(request, 'main/dashboard/presences/presences_home.html', {
                 'childrens': childrens,
             })
 
@@ -31,7 +37,7 @@ def set_presence(child, date, is_present):
     Function to set present or create it.
     :return:
     """
-    presences = Presences.objects.filter(date=date).first()
+    presences = Presences.objects.filter(date=date, children=child).first()
     if presences:
         presences.is_present = is_present
         presences.save()
@@ -77,4 +83,18 @@ class KidsPresencesGetView(LoginRequiredMixin, View):
 
 class KidsAllPresencesGetView(LoginRequiredMixin, View):
     def post(self, request):
-        return JsonResponse({'ok': 'ok'})
+        # TODO implement many institution view
+        institution = request.user.institution_set.all().first()
+        start_date = datetime.datetime.strptime(request.POST.get('start')[0:10], "%Y-%m-%d")
+        end_date = datetime.datetime.strptime(request.POST.get('end')[0:10], "%Y-%m-%d")
+
+        presences = []
+        for children in institution.children_set.all():
+            child_presences = children.presences_set.filter(date__gte=start_date, date__lt=end_date)
+            for day in child_presences:
+                presences.append({
+                    'title': children.first_name + ' ' + children.last_name,
+                    'start': day.date,
+                    'color': '#21ff37' if day.is_present else '#ff6161'
+                })
+        return JsonResponse(presences, safe=False)

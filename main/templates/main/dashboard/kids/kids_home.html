@@ -14,16 +14,21 @@
             {% endif %}
         </div>
         <div class="row">
-            {% for children in childrens %}
+            {% for children in childrens.order_by %}
                 <div class="col-3">
                     <div class="profile-card">
                         <div class="profile-card__img">
-                            <img src="{% static 'dashboard/img/boy.jpg' %}"
-                                 alt="profile card">
+                            {% if children.is_girl %}
+                                <img src="{% static 'dashboard/img/girl.jpg' %}"
+                                     alt="profile card">
+                            {% else %}
+                                <img src="{% static 'dashboard/img/boy.jpg' %}"
+                                     alt="profile card">
+                            {% endif %}
                         </div>
                         <div class="profile-card__cnt">
                             <div class="profile-card__name">
-                                {{ children.first_name }} {{ children.last_name }}
+                                <a href="{% url 'kids-presence' %}?child={{ children.id }}">{{ children.first_name }} {{ children.last_name }}</a>
                                 {% if children.presence_today %}
                                     <span class="present present-yes">Obecny</span>
                                 {% elif children.presence_today != None %}

@@ -3,8 +3,6 @@ from django.shortcuts import render
 from django.views.generic.base import View
 
 from main.models import Institution
-from main.forms import ChildrenAddForm
-from main.models import Children
 
 
 class DashboardHomeView(LoginRequiredMixin, View):
@@ -15,11 +13,9 @@ class DashboardHomeView(LoginRequiredMixin, View):
             institution = Institution.objects.get(owner=request.user)
             return render(request, 'main/dashboard/dashboard_home.html', {
                 'institution': institution,
+                'child_count': institution.child_in_institution_today(),
             })
         else:
             return render(request, 'main/dashboard/dashboard_home.html', {
 
             })
-
-
-

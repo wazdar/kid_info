@@ -25,19 +25,19 @@
                     <div class="children-status justify-content-center">
                         <p>Obecnych</p>
                         <div class="vertical-line"></div>
-                        <p class="text-success">{{ institution.children_set.all.count }}</p>
+                        <p class="text-success">{{ child_count.in_inst }}</p>
 
                     </div>
                     <div class="children-status justify-content-center">
                         <p>Nieobecnych</p>
                         <div class="vertical-line"></div>
-                        <p class="text-danger">{{ institution.children_set.all.count }}</p>
+                        <p class="text-danger">{{ child_count.out_inst }}</p>
                     </div>
 
                     <div class="children-status justify-content-center">
                         <p>Nieokreśonych</p>
                         <div class="vertical-line"></div>
-                        <p class="text-secondary">{{ institution.children_set.all.count }}</p>
+                        <p class="text-secondary">{{ child_count.none_inst }}</p>
                     </div>
                 </div>
             </div>

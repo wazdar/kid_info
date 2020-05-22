@@ -1,26 +1,16 @@
 {% extends 'dashboard/base_dashboard.html' %}
 {% load static %}
-{% block title %}- Dzieci{% endblock %}
+{% block title %}- Obecność{% endblock %}
 
 {% block content %}
     <main class="app-content">
         <div class="row">
-        <pre>
-                      {% for child in childrens %}
-
-                          {{ child }}
-                          {{ child.presence_today }}
-                      {% endfor %}
-        </pre>
-        <div class="card p-3">
-            <div id="institution_calendar"></div>
-        </div>
+            <div class="card p-3">
+                <div id="institution_calendar"></div>
+            </div>
 
         </div>
     </main>
-
-
-
 {% endblock %}
 
 {% block js %}
