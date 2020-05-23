@@ -1,7 +1,7 @@
 # kid_info
 A small application for managing children in nurseries and kindergartens.
 
-#Screenshots:
+# Screenshots:
 ![scr1](/doc/img/2.png)
 ![scr1](/doc/img/1.png)
 ![scr1](/doc/img/5.png)
@@ -10,5 +10,5 @@ A small application for managing children in nurseries and kindergartens.
 ![scr1](/doc/img/6.png)
 ![scr1](/doc/img/7.png)
 
-#How to run dev
+# How to run dev
 >Run "npm install" in static folder, when all dependencies is install run "npm run start:dev"
