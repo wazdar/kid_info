@@ -24,9 +24,15 @@
                                             >
                                         </div>
                                         <div class="chat_ib">
-                                            <h5>{{ child }} <span class="chat_date">Dec 25</span></h5>
-                                            <p>Test, which is a new approach to have all solutions
-                                                astrology under one roof.</p>
+                                            <h5>{{ child }} <span class="chat_date"></span></h5>
+                                            <p>
+                                                {% if child.mother %}
+                                                    <span>Mama: {{ child.mother.first_name }} {{ child.mother.last_name }}</span>
+                                                {% endif %}
+                                                {% if child.father %}
+                                                    <span class="float-right">Tata: {{ child.father.first_name }} {{ child.father.last_name }}</span>
+                                                {% endif %}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

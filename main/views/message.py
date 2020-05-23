@@ -8,9 +8,19 @@ from main.models import Message, Children
 
 class MessageHome(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'main/dashboard/message/message_home.html', {
-            'childrens': request.user.institution_set.all().first().children_set.all()
-        })
+        if request.user.user_type != 1:
+            return render(request, 'main/dashboard/message/message_home.html', {
+                'childrens': request.user.institution_set.all().first().children_set.all()
+            })
+        else:
+            try:
+                child = request.user.mother
+            except:
+                child = request.user.father
+
+            return render(request, 'main/dashboard/message/message_parent_home.html', {
+                'children': child
+            })
 
 
 class MessageAPI(LoginRequiredMixin, View):
@@ -24,7 +34,8 @@ class MessageAPI(LoginRequiredMixin, View):
                     "id": msg.id,
                     "datetime": msg.date,
                     "from_parent": msg.children.is_parent(msg.sender),
-                    "text": msg.text
+                    "text": msg.text,
+                    "user": msg.sender.first_name + ' ' + msg.sender.last_name,
                 })
 
             return JsonResponse(

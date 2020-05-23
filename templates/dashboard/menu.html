@@ -10,6 +10,9 @@
             <a href="{% url 'kids-presence' %}">
                 <li class="app-menu__item"><i class="fa fa-calendar mr-2"></i>Obecność</li>
             </a>
+            <a href="{% url 'message-home' %}">
+                <li class="app-menu__item"><i class="fa fa-comments mr-2"></i>Wiadomości do rodziców</li>
+            </a>
         {% else %}
             <a href="{% url 'dashboard-home' %}">
                 <li class="app-menu__item"><i class="fa fa-home mr-2"></i>Home</li>

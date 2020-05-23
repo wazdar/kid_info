@@ -151,7 +151,7 @@ class ParentRegistrationViaInv(View):
                 inv.mother_inv.mother = user
                 inv.mother_inv.save()
             else:
-                inv.father_inv = user
+                inv.father_inv.father = user
                 inv.father_inv.save()
 
             inv.delete()

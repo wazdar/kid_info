@@ -1,0 +1,50 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}- Wiadomości{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row card p-4">
+            <h3 class=" text-center">Wiadomości do placówki</h3>
+            <div class="messaging">
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="inbox_chat">
+
+                            <div class="chat_list" data-id="{{ children.id }}" >
+                                <div class="chat_people">
+                                    <div class="chat_img">
+                                        <img class="rounded" src="{% static 'dashboard/img/building.jpg' %}">
+                                    </div>
+                                    <div class="chat_ib">
+                                        <h5>{{ children.institution.name }} <span class="chat_date"></span></h5>
+                                        <p>Właściciel: {{ children.institution.owner.first_name }} {{ children.institution.owner.last_name }} </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="msg_history">
+                        </div>
+                        <div class="type_msg" style="display: none">
+                            <div class="input_msg_write">
+                                <input type="hidden" id="child_id" name="child_id" value="null"/>
+                                <input type="text" class="write_msg" placeholder="Wiadomość do wysłania"/>
+                                <button class="msg_send_btn" type="button">
+                                    <i class="fa fa-paper-plane"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

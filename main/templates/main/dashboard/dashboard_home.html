@@ -11,34 +11,42 @@
                         <img src="{% static 'dashboard/img/building.jpg' %}"
                              alt="profile card">
                     </div>
+                    {% if request.user.user_type != 1 %}
+                        <div class="profile-card__cnt">
+                            <div class="profile-card__name"></div>
+                        </div>
+                        <hr>
+                        <span class="profile-card__cnt-title">{{ institution.name }}</span>
+                        <div class="children-status justify-content-center">
+                            <p>Ilość dzieci</p>
+                            <div class="vertical-line"></div>
+                            <p>{{ institution.children_set.all.count }}</p>
+                        </div>
+                        <div class="children-status justify-content-center">
+                            <p>Obecnych</p>
+                            <div class="vertical-line"></div>
+                            <p class="text-success">{{ child_count.in_inst }}</p>
 
-                    <div class="profile-card__cnt">
-                        <div class="profile-card__name"></div>
-                    </div>
-                    <hr>
-                    <span class="profile-card__cnt-title">{{ institution.name }}</span>
-                    <div class="children-status justify-content-center">
-                        <p>Ilość dzieci</p>
-                        <div class="vertical-line"></div>
-                        <p>{{ institution.children_set.all.count }}</p>
-                    </div>
-                    <div class="children-status justify-content-center">
-                        <p>Obecnych</p>
-                        <div class="vertical-line"></div>
-                        <p class="text-success">{{ child_count.in_inst }}</p>
+                        </div>
+                        <div class="children-status justify-content-center">
+                            <p>Nieobecnych</p>
+                            <div class="vertical-line"></div>
+                            <p class="text-danger">{{ child_count.out_inst }}</p>
+                        </div>
 
-                    </div>
-                    <div class="children-status justify-content-center">
-                        <p>Nieobecnych</p>
-                        <div class="vertical-line"></div>
-                        <p class="text-danger">{{ child_count.out_inst }}</p>
-                    </div>
+                        <div class="children-status justify-content-center">
+                            <p>Nieokreśonych</p>
+                            <div class="vertical-line"></div>
+                            <p class="text-secondary">{{ child_count.none_inst }}</p>
+                        </div>
 
-                    <div class="children-status justify-content-center">
-                        <p>Nieokreśonych</p>
-                        <div class="vertical-line"></div>
-                        <p class="text-secondary">{{ child_count.none_inst }}</p>
-                    </div>
+                    {% else %}
+                        <div class="children-status justify-content-center">
+                            <p class="text-primary">{{ request.user.mother.institution.name }}{{ request.user.father.institution.name }}</p><br>
+                            <p>{{ request.user.mother.institution.owner }}{{ request.user.father.institution.owner }}</p><br>
+
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

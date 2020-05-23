@@ -2,13 +2,13 @@ import {getCookie} from './ultis';
 
 $(function () {
 
-    function create_msg(from_parent, text, date) {
+    function create_msg(from_parent, text, date, user) {
         if (!from_parent) {
             return `
             <div class="outgoing_msg">
                 <div class="sent_msg">
                 <p>${text}</p>
-                <span class="time_date"> ${date.toDateString()} | ${date.toLocaleTimeString()}</span></div>
+                <span class="time_date"> ${date.toDateString()} | ${date.toLocaleTimeString()} ||   ${user}</span></div>
             </div>
             `
         } else {
@@ -24,10 +24,12 @@ $(function () {
                 src=${img}
                 
                 ></div>
-                <div class="received_msg">
-                <div class="received_withd_msg">
+                <div class="received_msg mt-3">                
+                <div class="received_withd_msg">                
                 <p>${text}</p>
-                <span class="time_date"> ${date.toDateString()} | ${date.toLocaleTimeString()}</span></div>
+                <span class="time_date"> ${date.toDateString()} | ${date.toLocaleTimeString()} ||   ${user}</span>
+                
+                </div>
                 </div>
             </div>
             `
@@ -57,7 +59,7 @@ $(function () {
             success: function (response) {
                 response.map(function (element) {
                     var date = new Date(element.datetime)
-                    chat.append(create_msg(element.from_parent, element.text, date))
+                    chat.append(create_msg(element.from_parent, element.text, date, element.user))
                 })
 
 
@@ -66,14 +68,17 @@ $(function () {
             complete: function () {
                 $('#child_id').val(id)
                 $('.type_msg').show();
+                chat.scrollTop(chat[0].scrollHeight);
             }
         });
     }
 
 
     $('.chat_list').click(function () {
-        get_msg(this)
+         get_msg(this)
+
     })
+
 
     $('.msg_send_btn').click(function () {
         var msg = $('.write_msg').val(),
