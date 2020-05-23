@@ -3,3 +3,4 @@ import '../sass/main.scss';
 import './custom';
 import './calendar';
 import './inst-calendar';
+import  './message'

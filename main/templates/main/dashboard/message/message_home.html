@@ -1,0 +1,58 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+{% block title %}- Wiadomości{% endblock %}
+
+{% block content %}
+    <main class="app-content">
+        <div class="row card p-4">
+            <h3 class=" text-center">Wiadomości do rodziców</h3>
+            <div class="messaging">
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="inbox_chat">
+                            {% for child in childrens %}
+                                <div class="chat_list" data-id="{{ child.id }}">
+                                    <div class="chat_people">
+                                        <div class="chat_img">
+                                            <img class="rounded" src="
+
+                                            {% if child.is_girl %}
+                                                {% static 'dashboard/img/girl.jpg' %}
+                                            {% else %}
+                                                {% static 'dashboard/img/boy.jpg' %}
+                                            {% endif %}"
+                                            >
+                                        </div>
+                                        <div class="chat_ib">
+                                            <h5>{{ child }} <span class="chat_date">Dec 25</span></h5>
+                                            <p>Test, which is a new approach to have all solutions
+                                                astrology under one roof.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="msg_history">
+                        </div>
+                        <div class="type_msg" style="display: none">
+                            <div class="input_msg_write">
+                                <input type="hidden" id="child_id" name="child_id" value="null"/>
+                                <input type="text" class="write_msg" placeholder="Wiadomość do wysłania"/>
+                                <button class="msg_send_btn" type="button">
+                                    <i class="fa fa-paper-plane"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

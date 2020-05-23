@@ -18,5 +18,5 @@ urlpatterns = [
     path('dashboard/kids/presence/get', views.KidsPresencesGetView.as_view(), name='kids-presence-get'),
     path('dashboard/kids/presence/get-all', views.KidsAllPresencesGetView.as_view(), name='kids-presence-get-all'),
     path('dashboard/message', views.MessageHome.as_view(), name='message-home'),
-
+    path('dashboard/message/msg', views.MessageAPI.as_view(), name='message-api'),
 ]

@@ -61,6 +61,9 @@ class Children(models.Model):
     def is_girl(self):
         return self.first_name[-1] == 'a'
 
+    def is_parent(self, user):
+        return 'mother' if self.mother == user else 'father' if self.father == user else None
+
 
 class Presences(models.Model):
     children = models.ForeignKey(Children, on_delete=models.CASCADE)
@@ -70,6 +73,6 @@ class Presences(models.Model):
 
 class Message(models.Model):
     date = models.DateTimeField(auto_now_add=True)
-    children = models.OneToOneField(Children, on_delete=models.CASCADE)
-    sender = models.OneToOneField('kid_auth.User', on_delete=models.CASCADE)
+    children = models.ForeignKey(Children, on_delete=models.CASCADE)
+    sender = models.ForeignKey('kid_auth.User', on_delete=models.CASCADE)
     text = models.TextField()

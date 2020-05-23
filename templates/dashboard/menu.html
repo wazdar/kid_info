@@ -20,7 +20,10 @@
             <a href="{% url 'kids-presence' %}">
                 <li class="app-menu__item"><i class="fa fa-calendar mr-2"></i>Lista obecności</li>
             </a>
-            <li class="app-menu__item"><a href=""></a><i class="fa fa-comments mr-2"></i>Wiadomości do rodziców</li>
+            <a href="{% url 'message-home' %}">
+                <li class="app-menu__item"><i class="fa fa-comments mr-2"></i>Wiadomości do rodziców</li>
+            </a>
+
         {% endif %}
 
 
