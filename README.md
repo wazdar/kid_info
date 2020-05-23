@@ -12,3 +12,8 @@ A small application for managing children in nurseries and kindergartens.
 
 # How to run dev
 >Run "npm install" in static folder, when all dependencies is install run "npm run start:dev"
+
+# Used modules.
+[jQuer](https://jquery.com/)
+[SASS](https://sass-lang.com/)
+[FullCalendar](https://fullcalendar.io/)
