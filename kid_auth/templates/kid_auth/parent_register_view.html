@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block content %}
     <body class="login-page">
     <!-- Navbar -->
     <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
         <div class="container">
-            <a class="navbar-brand mr-lg-5" href="../index.html">
-                logo
+            <a class="navbar-brand mr-lg-5" href="{% url 'home-page' %}">
+                <img src="{% static 'dashboard/img/kidinfo.png' %}">
             </a>
         </div>
     </nav>

@@ -1,5 +1,4 @@
 from django.urls import path
-
 from kid_auth import views
 
 urlpatterns = [
@@ -8,5 +7,7 @@ urlpatterns = [
     path('register', views.RegisterInstitution.as_view(), name='register-institution'),
     path('invite', views.ParentInvitationView.as_view(), name='parent-invite'),
     path('invite/cancel', views.ParentInvitationCancelView.as_view(), name='parent-invite-cancel'),
-    path('parent/inv/<str:my_hash>', views.ParentRegistrationViaInv.as_view(), name='parent-registration')
+    path('parent/inv/<str:my_hash>', views.ParentRegistrationViaInv.as_view(), name='parent-registration'),
+
+
 ]

@@ -7,6 +7,4 @@ class HomePageView(View):
         return render(request, 'main/home_page_view.html', {})
 
 
-class HomePageView2(View):
-    def get(self, request):
-        return render(request, 'main/home_page_view2.html', {})
+
