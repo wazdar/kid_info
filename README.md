@@ -17,3 +17,5 @@ A small application for managing children in nurseries and kindergartens.
 [jQuer](https://jquery.com/)
 [SASS](https://sass-lang.com/)
 [FullCalendar](https://fullcalendar.io/)
+[Argon](https://www.creative-tim.com/product/argon-design-system)
+[Bootstrap](https://getbootstrap.com/)
