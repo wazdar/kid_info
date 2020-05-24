@@ -27,6 +27,21 @@ def send_parent_invitation(receiver, hash):
         return ex
 
 
+def send_password_reset_link(receiver, hash):
+    # TODO dorobić wysyólanie z ssl oraz z dedykowanej poczty    try:
+    try:
+        send_mail(
+            'Link do zmiany hasła',
+            f'Link do zmiany hasłą :  http://localhost:8000/account/password-reset/{hash}',
+            'from@example.com',
+            [receiver],
+            fail_silently=False,
+        )
+        return True
+    except Exception as ex:
+        return ex
+
+
 import random
 
 

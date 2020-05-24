@@ -190,3 +190,36 @@ class RegisterNewParentForm(forms.Form):
             }
         )
     )
+
+
+class PasswordResetEmailForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Email'
+            }
+        )
+    )
+
+
+class PasswordResetForm(forms.Form):
+    pass_hash = forms.CharField(max_length=256, required=False, widget=forms.HiddenInput())
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Nowe hasło',
+                'autocomplete': 'off'
+            }
+        )
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Powtórz nowe hasło',
+                'autocomplete': 'off'
+            }
+        )
+    )

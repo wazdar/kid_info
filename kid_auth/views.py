@@ -3,7 +3,13 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 
-from .forms import LoginForm, RegisterNewInstitutionAndUserForm, RegisterNewParentForm
+from .forms import (
+    LoginForm,
+    RegisterNewInstitutionAndUserForm,
+    RegisterNewParentForm,
+    PasswordResetEmailForm,
+    PasswordResetForm
+)
 from .models import User, DIRECTOR, ParentInvitation
 from main.models import Institution, Address, Children
 from kid_info import utility
@@ -173,4 +179,67 @@ class ParentInvitationCancelView(View):
 
         return JsonResponse({
             'status': 'ok'
+        })
+
+
+class PasswordResetEmailView(View):
+    def get(self, request):
+        form = PasswordResetEmailForm()
+        return render(request, 'kid_auth/password_reset_form.html', {
+            'form': form,
+        })
+
+    def post(self, request):
+        form = PasswordResetEmailForm(request.POST)
+        if form.is_valid():
+            try:
+                user = User.objects.get(email=form.cleaned_data['email'])
+                user.pass_hash = utility.hash_generator()
+                user.save()
+                utility.send_password_reset_link(user.email, user.pass_hash)
+            except User.DoesNotExist:
+                user = None
+
+            return render(request, 'kid_auth/password_reset_form.html', {
+                'text': 'Na podany email został wysłany link do zaminay hasła.'
+            })
+
+        return render(request, 'kid_auth/password_reset_form.html', {
+            'form': form,
+            'text': 'Coś nie poszło'
+        })
+
+
+class PasswordResetView(View):
+    def get(self, request, pass_hash):
+        if pass_hash:
+            form = PasswordResetForm(initial={'pass_hash': pass_hash})
+            return render(request, 'kid_auth/password_reset_form.html', {
+                'form': form
+            })
+
+    def post(self, request, pass_hash):
+        form = PasswordResetForm(request.POST)
+        text = ''
+        if form.is_valid():
+            try:
+                if form.cleaned_data['password'] == form.cleaned_data['password2']:
+                    user = User.objects.get(pass_hash=form.cleaned_data['pass_hash'])
+                    user.set_password(form.cleaned_data['password'])
+                    user.pass_hash = None
+                    user.save()
+                    text = 'Hasło zmienione'
+                    form = None
+                else:
+                    text = 'Hasła nie sa poprawne'
+
+            except User.DoesNotExist:
+                text = 'Hasło zmienione :)'
+                form = None
+        else:
+            text = 'Popraw formularz'
+
+        return render(request, 'kid_auth/password_reset_form.html', {
+            'form': form,
+            'text': text
         })

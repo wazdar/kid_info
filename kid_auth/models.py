@@ -58,6 +58,8 @@ class User(AbstractUser):
     address = models.ForeignKey('main.Address', on_delete=models.CASCADE, null=True, default=None)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE)
 
+    pass_hash = models.CharField(max_length=256, default=None, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
