@@ -1,3 +1,5 @@
+import {getCookie} from './ultis';
+
 $(function () {
 
 
