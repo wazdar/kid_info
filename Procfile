@@ -1,0 +1,1 @@
+web: gunicorn kid_info.wsgi
