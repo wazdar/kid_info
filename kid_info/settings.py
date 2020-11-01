@@ -75,11 +75,8 @@ WSGI_APPLICATION = 'kid_info.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': '127.0.0.1',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kid_info',
-        'USER': 'postgres',
-        'PASSWORD': 'coderslab',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite',
     }
 }
 
